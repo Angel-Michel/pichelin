@@ -32,6 +32,7 @@
             position: relative; width: 100vw; height: 100vh;
             transform-style: preserve-3d;
             display: flex; justify-content: center; align-items: center;
+            pointer-events: none; /* MODIFICACIÓN: Permite que el clic atraviese esta capa */
         }
 
         /* --- CREEPER 3D --- */
@@ -43,6 +44,7 @@
             transform: translateZ(-600px) rotateY(-15deg); 
             cursor: pointer; z-index: 100;
             transition: transform 2.5s linear; /* Caminata recta */
+            pointer-events: auto; /* MODIFICACIÓN: Reactiva el clic solo para el Creeper */
         }
 
         :root {
