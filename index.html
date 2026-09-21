@@ -32,19 +32,19 @@
             position: relative; width: 100vw; height: 100vh;
             transform-style: preserve-3d;
             display: flex; justify-content: center; align-items: center;
-            pointer-events: none; /* MODIFICACIÓN: Permite que el clic atraviese esta capa */
+            pointer-events: none; 
         }
 
         /* --- CREEPER 3D --- */
         .creeper-wrapper {
             position: absolute; bottom: 30%;
-            width: 100px; height: 200px; /* Área de clic grande y segura */
+            width: 100px; height: 200px; 
             display: flex; justify-content: center; align-items: flex-end;
             transform-style: preserve-3d;
             transform: translateZ(-600px) rotateY(-15deg); 
             cursor: pointer; z-index: 100;
-            transition: transform 2.5s linear; /* Caminata recta */
-            pointer-events: auto; /* MODIFICACIÓN: Reactiva el clic solo para el Creeper */
+            transition: transform 2.5s linear; 
+            pointer-events: auto; 
         }
 
         :root {
@@ -52,19 +52,12 @@
             --c-top: #77dd77; --c-bottom: #228822;
         }
 
-        .creeper {
-            position: relative; transform-style: preserve-3d;
-        }
-
+        .creeper { position: relative; transform-style: preserve-3d; }
         .cube { position: absolute; transform-style: preserve-3d; }
         .face { position: absolute; box-sizing: border-box; outline: 1px solid rgba(0,0,0,0.1); }
-        
-        /* Capa para el parpadeo blanco (ignición) */
-        .face::before {
-            content: ''; position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.1s;
-        }
+        .face::before { content: ''; position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.1s; }
 
-        /* Cabeza (64x64x64) */
+        /* Estructura del Creeper */
         .head { width: 64px; height: 64px; left: -32px; top: -144px; transform-origin: center bottom; animation: idleHead 3s infinite alternate; }
         .head .front { width: 64px; height: 64px; transform: translateZ(32px); background: var(--c-main); }
         .head .back { width: 64px; height: 64px; transform: rotateY(180deg) translateZ(32px); background: var(--c-dark); }
@@ -73,18 +66,15 @@
         .head .top { width: 64px; height: 64px; transform: rotateX(90deg) translateZ(32px); background: var(--c-top); }
         .head .bottom { width: 64px; height: 64px; transform: rotateX(-90deg) translateZ(32px); background: var(--c-bottom); }
 
-        /* Cara del Creeper usando box-shadow en un pixel de 8x8 */
         .head .front::after {
             content: ''; position: absolute; top: 0; left: 0; width: 8px; height: 8px;
             box-shadow: 
-                8px 16px 0 #111, 16px 16px 0 #111, 8px 24px 0 #111, 16px 24px 0 #111, /* Ojo Izq */
-                40px 16px 0 #111, 48px 16px 0 #111, 40px 24px 0 #111, 48px 24px 0 #111, /* Ojo Der */
-                24px 32px 0 #111, 32px 32px 0 #111, 24px 40px 0 #111, 32px 40px 0 #111, 24px 48px 0 #111, 32px 48px 0 #111, /* Nariz/Centro */
-                16px 40px 0 #111, 16px 48px 0 #111, /* Boca Izq */
-                40px 40px 0 #111, 40px 48px 0 #111; /* Boca Der */
+                8px 16px 0 #111, 16px 16px 0 #111, 8px 24px 0 #111, 16px 24px 0 #111, 
+                40px 16px 0 #111, 48px 16px 0 #111, 40px 24px 0 #111, 48px 24px 0 #111, 
+                24px 32px 0 #111, 32px 32px 0 #111, 24px 40px 0 #111, 32px 40px 0 #111, 24px 48px 0 #111, 32px 48px 0 #111, 
+                16px 40px 0 #111, 16px 48px 0 #111, 40px 40px 0 #111, 40px 48px 0 #111;
         }
 
-        /* Torso (64x96x32) */
         .torso { width: 64px; height: 96px; left: -32px; top: -80px; }
         .torso .front { width: 64px; height: 96px; transform: translateZ(16px); background: var(--c-main); }
         .torso .back { width: 64px; height: 96px; transform: rotateY(180deg) translateZ(16px); background: var(--c-dark); }
@@ -92,39 +82,57 @@
         .torso .left { width: 32px; height: 96px; left: 16px; transform: rotateY(-90deg) translateZ(32px); background: var(--c-main); }
         .torso .top { width: 64px; height: 32px; top: 32px; transform: rotateX(90deg) translateZ(48px); background: var(--c-top); }
 
-        /* Piernas (32x48x32) */
         .leg { width: 32px; height: 48px; top: 16px; transform-origin: 50% 0; }
-        .leg-fr { left: -32px; transform: translateZ(16px); } /* Front Right */
-        .leg-fl { left: 0px; transform: translateZ(16px); }  /* Front Left */
-        .leg-br { left: -32px; transform: translateZ(-16px); } /* Back Right */
-        .leg-bl { left: 0px; transform: translateZ(-16px); }  /* Back Left */
-
+        .leg-fr { left: -32px; transform: translateZ(16px); } 
+        .leg-fl { left: 0px; transform: translateZ(16px); }  
+        .leg-br { left: -32px; transform: translateZ(-16px); } 
+        .leg-bl { left: 0px; transform: translateZ(-16px); }  
         .leg .front { width: 32px; height: 48px; transform: translateZ(16px); background: var(--c-main); }
         .leg .back { width: 32px; height: 48px; transform: rotateY(180deg) translateZ(16px); background: var(--c-dark); }
         .leg .right { width: 32px; height: 48px; transform: rotateY(90deg) translateZ(16px); background: var(--c-dark); }
         .leg .left { width: 32px; height: 48px; transform: rotateY(-90deg) translateZ(16px); background: var(--c-main); }
-        .leg .bottom { width: 32px; height: 32px; top: 8px; transform: rotateX(-90deg) translateZ(24px); background: #111; } /* Pezuñas oscuras */
+        .leg .bottom { width: 32px; height: 32px; top: 8px; transform: rotateX(-90deg) translateZ(24px); background: #111; } 
 
         @keyframes idleHead { 0% { transform: rotateY(-15deg) rotateX(-5deg); } 100% { transform: rotateY(15deg) rotateX(5deg); } }
-
-        /* --- ANIMACIONES DE INTERACCIÓN --- */
         .creeper-wrapper.walking { transform: translateZ(200px) translateY(50px) rotateY(0deg); }
         .creeper-wrapper.walking .leg-fr { animation: walkFR 0.4s infinite alternate linear; }
         .creeper-wrapper.walking .leg-bl { animation: walkBL 0.4s infinite alternate linear; }
         .creeper-wrapper.walking .leg-fl { animation: walkFL 0.4s infinite alternate linear; }
         .creeper-wrapper.walking .leg-br { animation: walkBR 0.4s infinite alternate linear; }
-
         @keyframes walkFR { 0% { transform: translateZ(16px) rotateX(-25deg); } 100% { transform: translateZ(16px) rotateX(25deg); } }
         @keyframes walkBL { 0% { transform: translateZ(-16px) rotateX(-25deg); } 100% { transform: translateZ(-16px) rotateX(25deg); } }
         @keyframes walkFL { 0% { transform: translateZ(16px) rotateX(25deg); } 100% { transform: translateZ(16px) rotateX(-25deg); } }
         @keyframes walkBR { 0% { transform: translateZ(-16px) rotateX(25deg); } 100% { transform: translateZ(-16px) rotateX(-25deg); } }
 
-        /* Animación de ignición (Punto de explotar) */
         .creeper-wrapper.igniting .creeper { animation: swell 1.5s linear forwards; }
         .creeper-wrapper.igniting .face::before { animation: flashWhite 0.2s infinite alternate; }
-
         @keyframes swell { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
         @keyframes flashWhite { 0% { opacity: 0; } 100% { opacity: 0.8; } }
+
+        /* --- ENDERMAN --- */
+        .enderman-wrapper {
+            position: absolute; bottom: 0%; 
+            display: none; flex-direction: column; align-items: center;
+            z-index: 35; transform: scale(1.5);
+        }
+        .enderman-wrapper.active {
+            display: flex;
+            animation: teleportIn 0.3s ease-out forwards;
+        }
+        @keyframes teleportIn {
+            0% { opacity: 0; transform: scale(1.2) translateY(50px); filter: brightness(2) drop-shadow(0 0 20px #e079ff); }
+            100% { opacity: 1; transform: scale(1.5) translateY(0); filter: brightness(1); }
+        }
+        .e-head { width: 40px; height: 40px; background: #1a1a1a; position: relative; margin-bottom: 2px;}
+        .e-eyes { position: absolute; top: 22px; width: 100%; display: flex; justify-content: center; gap: 6px; }
+        .e-eye { width: 12px; height: 4px; background: #e079ff; box-shadow: 0 0 10px #e079ff; }
+        .e-body-group { display: flex; height: 60px; gap: 2px; }
+        .e-body { width: 40px; height: 60px; background: #1a1a1a; }
+        .e-arm { width: 12px; height: 100px; background: #1a1a1a; transform-origin: top center; }
+        .left-arm { transform: rotate(25deg) translateY(5px); } /* Brazos sosteniendo las flores */
+        .right-arm { transform: rotate(-25deg) translateY(5px); }
+        .e-legs { display: flex; gap: 8px; margin-top: 2px; }
+        .e-leg { width: 12px; height: 100px; background: #1a1a1a; }
 
         /* --- JARDÍN MÁGICO --- */
         .garden {
@@ -152,7 +160,6 @@
         @keyframes breathe { 0% { transform: rotate(-4deg) scale(0.98); } 100% { transform: rotate(4deg) scale(1.02); } }
         .stem { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 8px; background: linear-gradient(to top, #1b5e20, #4caf50); border-radius: 4px; }
 
-        /* Flores */
         .sunflower-head { position: absolute; top: 0; left: 50%; transform: translateX(-50%) scale(1.2); width: 100px; height: 100px; }
         .sunflower-petal { position: absolute; width: 20px; height: 60px; background: linear-gradient(to bottom, #fff176, #fbc02d); border-radius: 50% 50% 20% 20%; top: 20px; left: 40px; transform-origin: 10px 30px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
         .sunflower-center { position: absolute; top: 30px; left: 30px; width: 40px; height: 40px; background: radial-gradient(circle, #4e342e, #21110e); border-radius: 50%; z-index: 10; box-shadow: inset 0 0 10px #000; }
@@ -165,9 +172,8 @@
         .orchid-center { position: absolute; width: 35px; height: 40px; background: linear-gradient(to bottom, #ffca28, #e65100); border-radius: 40% 40% 50% 50%; top: 55px; left: 42px; z-index: 10; }
         .orchid-core { position: absolute; width: 14px; height: 14px; background: #fff; border-radius: 50%; top: 60px; left: 53px; z-index: 11; }
 
-        /* Mensaje Final */
         .message {
-            position: absolute; top: 20%; z-index: 70; text-align: center;
+            position: absolute; top: 15%; z-index: 70; text-align: center;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
             padding: 20px 40px; border-radius: 20px; border: 2px solid #fff;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2), 0 0 20px rgba(255, 235, 59, 0.5);
@@ -187,7 +193,7 @@
     <div class="hint" id="hint">¡Toca al Creeper!</div>
 
     <div class="scene">
-        <!-- CONTENEDOR CREEPER -->
+        <!-- CREEPER -->
         <div class="creeper-wrapper" id="creeper-wrap">
             <div class="creeper">
                 <div class="cube head">
@@ -200,66 +206,37 @@
                     <div class="face right"></div><div class="face left"></div>
                     <div class="face top"></div>
                 </div>
-                <div class="cube leg leg-fr">
-                    <div class="face front"></div><div class="face back"></div>
-                    <div class="face right"></div><div class="face left"></div>
-                    <div class="face bottom"></div>
-                </div>
-                <div class="cube leg leg-fl">
-                    <div class="face front"></div><div class="face back"></div>
-                    <div class="face right"></div><div class="face left"></div>
-                    <div class="face bottom"></div>
-                </div>
-                <div class="cube leg leg-br">
-                    <div class="face front"></div><div class="face back"></div>
-                    <div class="face right"></div><div class="face left"></div>
-                    <div class="face bottom"></div>
-                </div>
-                <div class="cube leg leg-bl">
-                    <div class="face front"></div><div class="face back"></div>
-                    <div class="face right"></div><div class="face left"></div>
-                    <div class="face bottom"></div>
-                </div>
+                <div class="cube leg leg-fr"><div class="face front"></div><div class="face back"></div><div class="face right"></div><div class="face left"></div><div class="face bottom"></div></div>
+                <div class="cube leg leg-fl"><div class="face front"></div><div class="face back"></div><div class="face right"></div><div class="face left"></div><div class="face bottom"></div></div>
+                <div class="cube leg leg-br"><div class="face front"></div><div class="face back"></div><div class="face right"></div><div class="face left"></div><div class="face bottom"></div></div>
+                <div class="cube leg leg-bl"><div class="face front"></div><div class="face back"></div><div class="face right"></div><div class="face left"></div><div class="face bottom"></div></div>
             </div>
         </div>
 
-        <!-- JARDÍN OCULTO -->
+        <!-- ENDERMAN -->
+        <div class="enderman-wrapper" id="enderman">
+            <div class="e-head">
+                <div class="e-eyes">
+                    <div class="e-eye"></div><div class="e-eye"></div>
+                </div>
+            </div>
+            <div class="e-body-group">
+                <div class="e-arm left-arm"></div>
+                <div class="e-body"></div>
+                <div class="e-arm right-arm"></div>
+            </div>
+            <div class="e-legs">
+                <div class="e-leg"></div><div class="e-leg"></div>
+            </div>
+        </div>
+
+        <!-- JARDÍN -->
         <div class="garden" id="garden">
-            <div class="flower-wrapper">
-                <div class="stem" style="height: 200px;"></div>
-                <div class="flower-head-container"><div class="sunflower-head">
-                    <script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script>
-                    <div class="sunflower-center"></div>
-                </div></div>
-            </div>
-            <div class="flower-wrapper">
-                <div class="stem" style="height: 270px;"></div>
-                <div class="flower-head-container" style="animation-delay: -1s;"><div class="orchid-head">
-                    <div class="orchid-petal top"></div><div class="orchid-petal left"></div><div class="orchid-petal right"></div>
-                    <div class="orchid-center"></div><div class="orchid-core"></div>
-                </div></div>
-            </div>
-            <div class="flower-wrapper">
-                <div class="stem" style="height: 330px;"></div>
-                <div class="flower-head-container" style="animation-delay: -2s;"><div class="sunflower-head">
-                    <script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script>
-                    <div class="sunflower-center"></div>
-                </div></div>
-            </div>
-            <div class="flower-wrapper">
-                <div class="stem" style="height: 250px;"></div>
-                <div class="flower-head-container" style="animation-delay: -0.5s;"><div class="orchid-head">
-                    <div class="orchid-petal top"></div><div class="orchid-petal left"></div><div class="orchid-petal right"></div>
-                    <div class="orchid-center"></div><div class="orchid-core"></div>
-                </div></div>
-            </div>
-            <div class="flower-wrapper">
-                <div class="stem" style="height: 210px;"></div>
-                <div class="flower-head-container" style="animation-delay: -1.5s;"><div class="sunflower-head">
-                    <script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script>
-                    <div class="sunflower-center"></div>
-                </div></div>
-            </div>
+            <div class="flower-wrapper"><div class="stem" style="height: 200px;"></div><div class="flower-head-container"><div class="sunflower-head"><script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script><div class="sunflower-center"></div></div></div></div>
+            <div class="flower-wrapper"><div class="stem" style="height: 270px;"></div><div class="flower-head-container" style="animation-delay: -1s;"><div class="orchid-head"><div class="orchid-petal top"></div><div class="orchid-petal left"></div><div class="orchid-petal right"></div><div class="orchid-center"></div><div class="orchid-core"></div></div></div></div>
+            <div class="flower-wrapper"><div class="stem" style="height: 330px;"></div><div class="flower-head-container" style="animation-delay: -2s;"><div class="sunflower-head"><script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script><div class="sunflower-center"></div></div></div></div>
+            <div class="flower-wrapper"><div class="stem" style="height: 250px;"></div><div class="flower-head-container" style="animation-delay: -0.5s;"><div class="orchid-head"><div class="orchid-petal top"></div><div class="orchid-petal left"></div><div class="orchid-petal right"></div><div class="orchid-center"></div><div class="orchid-core"></div></div></div></div>
+            <div class="flower-wrapper"><div class="stem" style="height: 210px;"></div><div class="flower-head-container" style="animation-delay: -1.5s;"><div class="sunflower-head"><script>for(let i=0; i<12; i++) document.write(`<div class="sunflower-petal" style="transform: rotate(${i * 30}deg)"></div>`);</script><div class="sunflower-center"></div></div></div></div>
         </div>
     </div>
 
@@ -270,42 +247,57 @@
 
     <script>
         const creeperWrap = document.getElementById('creeper-wrap');
+        const enderman = document.getElementById('enderman');
         const hint = document.getElementById('hint');
         const garden = document.getElementById('garden');
         const message = document.getElementById('message');
         let clicked = false;
+
+        // Sonidos usando links directos a archivos mp3 genéricos
+        const audioHiss = new Audio('https://www.myinstants.com/media/sounds/creeper_hiss.mp3');
+        const audioExplosion = new Audio('https://www.myinstants.com/media/sounds/minecraft_explosion.mp3');
+        const audioEnderman = new Audio('https://www.myinstants.com/media/sounds/enderman_teleport.mp3');
 
         creeperWrap.addEventListener('click', () => {
             if (clicked) return;
             clicked = true;
             hint.style.opacity = '0';
             
-            // 1. Creeper camina hacia ti
             creeperWrap.classList.add('walking');
 
-            // 2. Después de 2.5s (llega al frente) empieza a inflarse
             setTimeout(() => {
-                creeperWrap.classList.remove('walking'); // Se detiene
-                creeperWrap.classList.add('igniting'); // Ssssssss...
+                creeperWrap.classList.remove('walking'); 
+                creeperWrap.classList.add('igniting'); 
                 
-                // 3. Después de 1.5s inflandose... ¡PUM!
+                // Reproducir el famoso "Sssssss..."
+                audioHiss.play().catch(e => console.log('El navegador bloqueó el audio automático.'));
+
                 setTimeout(() => {
-                    creeperWrap.style.display = 'none'; // Desaparece
+                    creeperWrap.style.display = 'none'; 
                     
-                    // Gran explosión de partículas de Creeper y flores
+                    // Sonido de la explosión
+                    audioExplosion.play().catch(e => console.log('Sin permisos de audio.'));
+                    
                     for(let i=0; i<200; i++) {
                         particlesArray.push(new Particle(window.innerWidth/2, window.innerHeight/2 + 100, true));
                     }
 
-                    // Aparecen las flores y el mensaje desde el humo
+                    // Aparecen las flores
                     garden.classList.add('active');
+                    
+                    // El Enderman se teletransporta en medio del humo medio segundo después
+                    setTimeout(() => {
+                        audioEnderman.play().catch(e => {});
+                        enderman.classList.add('active');
+                    }, 300);
+
                     message.classList.add('active');
                 }, 1500);
 
             }, 2500);
         });
 
-        // --- SISTEMA DE PARTÍCULAS (Explosión verde y amarilla) ---
+        // --- SISTEMA DE PARTÍCULAS ---
         const canvas = document.getElementById('canvas-container');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -322,19 +314,15 @@
                 this.alpha = isExplosion ? 1 : Math.random() * 0.5 + 0.2;
                 this.decay = isExplosion ? Math.random() * 0.02 + 0.01 : 0.002;
                 
-                // Colores: verde creeper, amarillo girasol, blanco humo
-                const colors = ['85, 204, 85', '255, 235, 59', '255, 255, 255', '51, 170, 51'];
+                const colors = ['85, 204, 85', '255, 235, 59', '255, 255, 255', '138, 43, 226']; // Añadido púrpura del Enderman
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
                 this.x += this.speedX; this.y += this.speedY;
                 this.alpha -= this.decay;
-                // Efecto de gravedad para la explosión
                 if(this.decay > 0.002) this.speedY += 0.2; 
-                
                 if (this.size > 0.2 && this.decay > 0.002) this.size -= 0.05;
                 if(!this.isExplosion && this.decay === 0.002) { this.x += 0.5; this.y -= 0.2; }
-                
                 if (this.alpha <= 0 && this.decay === 0.002) {
                     this.x = Math.random() * canvas.width; this.y = canvas.height + 10;
                     this.alpha = Math.random() * 0.5 + 0.2;
@@ -343,12 +331,10 @@
             draw() {
                 if(this.alpha <= 0) return;
                 ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
-                // Partículas cuadradas estilo Minecraft para la explosión
                 ctx.fillRect(this.x, this.y, this.size, this.size);
             }
         }
 
-        // Partículas ambientales
         for (let i = 0; i < 40; i++) particlesArray.push(new Particle());
 
         function animate() {
